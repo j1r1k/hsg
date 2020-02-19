@@ -2,7 +2,6 @@
 module Validation (
     CustomerFieldError(..)
   , CustomerValidationError(..)
-  , CustomerValidation
   , CustomerNameInput(..)
   , CustomerInput(..)
   , validateNonEmpty
@@ -22,8 +21,6 @@ data CustomerFieldError = EmptyNotAllowed | PatternNotMatched deriving (Eq, Show
 
 data CustomerValidationError = ValidationError String CustomerFieldError deriving (Eq, Show)
 
-type CustomerValidation a = Either CustomerValidationError a
-
 data CustomerNameInput = CustomerNameInput String String deriving (Eq, Show)
 
 data CustomerInput = CustomerInput {
@@ -33,20 +30,20 @@ data CustomerInput = CustomerInput {
   , inputPhoneNumbers :: [String]
 } deriving (Eq, Show)
 
-validateNonEmpty :: String -> CustomerValidation String
+validateNonEmpty :: String -> Either CustomerFieldError String
 validateNonEmpty = undefined
 
-validateCustomerId :: String -> CustomerValidation CustomerId
+validateCustomerId :: String -> Either CustomerFieldError CustomerId
 validateCustomerId = undefined
 
-validateName :: CustomerNameInput -> CustomerValidation Name
+validateName :: CustomerNameInput -> Either CustomerFieldError Name
 validateName = undefined
 
-validatePhoneNumber :: String -> CustomerValidation PhoneNumber
+validatePhoneNumber :: String -> Either CustomerFieldError PhoneNumber
 validatePhoneNumber = undefined
 
-validatePhoneNumbers :: [String] -> CustomerValidation [PhoneNumber]
+validatePhoneNumbers :: [String] -> Either CustomerFieldError [PhoneNumber]
 validatePhoneNumbers = undefined
 
-validateCustomer :: CustomerInput -> CustomerValidation Customer
+validateCustomer :: CustomerInput -> Either CustomerValidationError Customer
 validateCustomer = undefined
